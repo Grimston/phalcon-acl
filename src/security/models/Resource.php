@@ -43,7 +43,6 @@ class Resource extends Model
      */
     public function initialize()
     {
-        $this->setSchema("phacs");
         $this->setSource("resource");
         $this->hasMany('resource', Action::class, 'resource', ['alias' => 'Action']);
     }
