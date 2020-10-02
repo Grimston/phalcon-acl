@@ -76,7 +76,7 @@ class AccessControlListPlugin extends Injectable
         if (!$auth->getAuth()){
             $role = 'Guest';
         } else {
-            $role = $auth->getAuth()->getTextAsArray()['role'];
+            $role = $auth->getAuth()->getRole();
         }
 
         $controller = strtolower($dispatcher->getControllerName());
