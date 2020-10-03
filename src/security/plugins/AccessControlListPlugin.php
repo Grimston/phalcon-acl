@@ -31,25 +31,25 @@ class AccessControlListPlugin extends Injectable
 
             $acl->setDefaultAction(Enum::DENY);
 
-            $dbRoles = Role::find();
-            $dbResources = Resource::find();
-            $dbACLItems = Accesscontrollist::find();
+            $roles = Role::find();
+            $resources = Resource::find();
+            $ACLItems = Accesscontrollist::find();
 
             // Register roles
-            foreach($dbRoles as $dbRole) {
-                $acl->addRole($dbRole->getRole());
+            foreach($roles as $role) {
+                $acl->addRole($role->getRole());
             }
 
-            foreach($dbResources as $dbResource) {
-                $dbActions = $dbResource->getAction();
+            foreach($resources as $resource) {
+                $actions = $resource->getAction();
                 $actions[] = null;
-                foreach($dbActions as $dbAction) {
-                    $actions[] = $dbAction->getAction();
+                foreach($actions as $action) {
+                    $actions[] = $action->getAction();
                 }
-                $acl->addComponent($dbAction->getResource(),$actions);
+                $acl->addComponent($resource->getResource(),$actions);
             }
 
-            foreach ($dbACLItems as $ACLItem){
+            foreach ($ACLItems as $ACLItem){
                 $acl->allow($ACLItem->getRole(), $ACLItem->getResource(), $ACLItem->getAction());
             }
 
